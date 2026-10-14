@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Readiness Tracker — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/exam-readiness.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="logo">VIDYA-X <span class="logo-accent">AI</span></div>
+    <p class="tagline">Empirical Exam Readiness & Mastery Evidence Tracker</p>
+    <nav class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="study-plan.html">Study Planner</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="revision.html">Revision Studio</a>
+      <a href="remediation.html">Remediation</a>
+      <a href="exam-readiness.html" class="active">Exam Readiness</a>
+      <a href="progress.html">Progress</a>
+    </nav>
+  </header>
+
+  <main class="readiness-container">
+
+    <!-- Header Card -->
+    <div class="readiness-header-card">
+      <div>
+        <h2>📊 Exam Readiness Tracker</h2>
+        <p class="subtitle">Evidence-based analysis of your current course mastery, topic coverage, active misconceptions, and remaining study time.</p>
+      </div>
+      <div class="disclaimer-badge">
+        <span>ℹ️ Estimated from recorded practice history</span>
+      </div>
+    </div>
+
+    <!-- Category Summary Card -->
+    <div id="readinessCategoryCard" class="category-card card">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Evaluating exam readiness from learner evidence...</p>
+      </div>
+    </div>
+
+    <div class="readiness-grid">
+
+      <!-- LEFT: Mastery & Coverage Breakdown -->
+      <section class="readiness-panel">
+        <h3 class="panel-title">Topic Mastery & Coverage</h3>
+        <div id="topicCoverageList" class="topic-coverage-list">
+          <div class="loading-state"><p>Loading topic coverage...</p></div>
+        </div>
+      </section>
+
+      <!-- RIGHT: Action Plan & Next Steps -->
+      <section class="readiness-panel">
+        <h3 class="panel-title">Recommended Action Plan</h3>
+        <div id="actionPlanContainer" class="action-plan-container">
+          <div class="loading-state"><p>Loading recommendations...</p></div>
+        </div>
+
+        <h3 class="panel-title" style="margin-top: 1.5rem;">Topics Needing Attention</h3>
+        <div id="weakTopicsContainer" class="weak-topics-container">
+          <div class="loading-state"><p>Checking weak topics...</p></div>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <script src="../js/exam-readiness.js"></script>
+</body>
+</html>

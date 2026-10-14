@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grounded AI Tutor — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app-shell.css">
+  <link rel="stylesheet" href="../css/tutor.css">
+</head>
+<body>
+
+  <!-- Demo Banner (Auto toggled) -->
+  <div id="demoBanner" class="demo-banner" style="display: none;">
+    <span>⚡ <strong>DEMO MODE ACTIVE:</strong> Exploring Newton's Laws &amp; Classical Mechanics</span>
+    <button id="exitDemoBtn">Exit Demo</button>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <a href="dashboard.html" class="app-brand">VIDYA-X <span class="brand-accent">AI</span></a>
+      <span class="course-context-pill" id="headerCourseName">General Course</span>
+    </div>
+    <nav class="header-nav">
+      <a href="dashboard.html" class="nav-item">Dashboard</a>
+      <a href="upload.html" class="nav-item">Materials</a>
+      <a href="tutor.html" class="nav-item active">AI Tutor</a>
+      <a href="visuals.html" class="nav-item">Visuals</a>
+      <a href="quiz.html" class="nav-item">Practice</a>
+      <a href="progress.html" class="nav-item">Mastery</a>
+      <a href="study-plan.html" class="nav-item">Study Plan</a>
+    </nav>
+  </header>
+
+  <!-- Main Tutor Chat -->
+  <main class="tutor-container">
+    <section class="tutor-chat-pane">
+      <div class="chat-header">
+        <div>
+          <h2>💬 Grounded AI Tutor</h2>
+          <p class="subtitle">Ask any concept or problem. Answers are strictly grounded in your course materials with verified citations.</p>
+        </div>
+        <div class="language-selector">
+          <label for="tutorLanguage">Language:</label>
+          <select id="tutorLanguage">
+            <option value="English">English</option>
+            <option value="Hindi">Hindi (हिंदी)</option>
+            <option value="Hinglish">Hinglish</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Messages Stream -->
+      <div class="chat-messages" id="chatMessages">
+        <div class="chat-bubble bot-bubble">
+          <div class="bubble-header">
+            <strong>VIDYA-X Tutor</strong>
+            <span class="time-stamp">Just now</span>
+          </div>
+          <p>Hello! I am your course-aware AI tutor. Ask me anything from your syllabus, or select a sample question below. I will explain concepts using strictly your course material and cite exact pages, slides, or timestamps.</p>
+        </div>
+      </div>
+
+      <!-- Suggested Starter Questions -->
+      <div class="suggested-prompts" id="suggestedPrompts">
+        <span class="prompts-label">Try asking:</span>
+        <button class="prompt-chip" data-q="What is Newton's Second Law relating force and acceleration?">What is Newton's Second Law?</button>
+        <button class="prompt-chip" data-q="Explain how kinetic friction differs from static friction.">Kinetic vs Static Friction</button>
+        <button class="prompt-chip" data-q="What is the chemical mechanism of photosynthesis in plants?">Photosynthesis (Test Abstention)</button>
+      </div>
+
+      <!-- Input Bar -->
+      <form class="chat-input-bar" id="tutorForm">
+        <textarea id="tutorInput" placeholder="Ask a question about your uploaded materials (e.g. 'Explain Newton's third law with examples')..." rows="1" required></textarea>
+        <button type="submit" id="sendBtn" class="btn-primary">Ask Tutor</button>
+      </form>
+    </section>
+
+    <!-- Side Citation Inspector Pane -->
+    <aside class="citations-sidebar">
+      <h3>📌 Verified Source Citations</h3>
+      <p class="citations-help">Select any citation tag inside an answer to inspect its exact course origin, location, and excerpt.</p>
+      <div id="citationsList" class="citations-list">
+        <div class="citation-empty">
+          <span>📖</span>
+          <p>No citations yet. Ask a question to view referenced excerpts.</p>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Course-Aware Multimodal Learning.</p>
+  </footer>
+
+  <script src="../config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/tutor.js"></script>
+</body>
+</html>

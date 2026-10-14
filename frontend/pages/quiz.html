@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adaptive Quiz — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app-shell.css">
+  <link rel="stylesheet" href="../css/quiz.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <a href="dashboard.html" class="app-brand">VIDYA-X <span class="brand-accent">AI</span></a>
+    </div>
+    <nav class="header-nav">
+      <a href="dashboard.html" class="nav-item">Dashboard</a>
+      <a href="upload.html" class="nav-item">Materials</a>
+      <a href="tutor.html" class="nav-item">AI Tutor</a>
+      <a href="visuals.html" class="nav-item">Visuals</a>
+      <a href="quiz.html" class="nav-item active">Practice</a>
+      <a href="progress.html" class="nav-item">Mastery</a>
+      <a href="study-plan.html" class="nav-item">Study Plan</a>
+    </nav>
+  </header>
+
+  <!-- ===== Main ===== -->
+  <main class="quiz-main">
+
+    <!-- ── PANEL 1: Setup ── -->
+    <section class="quiz-panel" id="setupPanel">
+      <h2 class="panel-title">&#x1F9E9; Generate a Quiz</h2>
+      <p class="panel-sub">Questions are generated exclusively from your uploaded course material.</p>
+
+      <div class="form-group">
+        <label for="courseIdInput">Course ID</label>
+        <input type="text" id="courseIdInput" placeholder="e.g. physics-101" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label for="topicInput">Topic / Query</label>
+        <input type="text" id="topicInput" placeholder="e.g. Newton's laws of motion" autocomplete="off">
+      </div>
+
+      <div class="form-group">
+        <label>Question Types</label>
+        <div class="checkbox-row">
+          <label class="checkbox-label">
+            <input type="checkbox" name="qtype" value="mcq" checked> Multiple Choice
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="qtype" value="short_answer" checked> Short Answer
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" name="qtype" value="numerical"> Numerical
+          </label>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group half">
+          <label for="countInput">Number of Questions</label>
+          <input type="number" id="countInput" min="1" max="20" value="5">
+        </div>
+        <div class="form-group half">
+          <label for="difficultySelect">Difficulty</label>
+          <select id="difficultySelect">
+            <option value="easy">Easy</option>
+            <option value="medium" selected>Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Practice Mode</label>
+        <div class="radio-row" style="display: flex; gap: 1rem; margin-top: 0.25rem;">
+          <label class="radio-label" style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+            <input type="radio" name="practiceMode" value="practice"> Standard Practice
+          </label>
+          <label class="radio-label" style="display: flex; align-items: center; gap: 0.4rem; cursor: pointer;">
+            <input type="radio" name="practiceMode" value="adaptive" checked> ⚡ AI Adaptive Practice
+          </label>
+        </div>
+        <p class="mode-tip" id="modeTip" style="font-size: 0.85rem; color: #64748b; margin-top: 0.35rem;">
+          🎯 <strong>AI Adaptive Practice:</strong> Questions are selected dynamically based on your current BKT learning progress.
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="modeSelect">Session Type</label>
+        <select id="modeSelect">
+          <option value="practice" selected>Practice (immediate feedback & mastery updates)</option>
+          <option value="exam">Exam (see results at end)</option>
+        </select>
+      </div>
+
+      <!-- Error message area -->
+      <div class="form-error" id="setupError" hidden></div>
+
+      <button class="btn-primary" id="generateBtn">Start Quiz Session</button>
+      <a href="dashboard.html" class="back-link">&#8592; Back to Dashboard</a>
+    </section>
+
+    <!-- ── PANEL 2: Loading ── -->
+    <section class="quiz-panel" id="loadingPanel" hidden>
+      <div class="loading-box">
+        <div class="spinner"></div>
+        <p id="loadingMsg">Preparing your adaptive learning session&hellip;</p>
+      </div>
+    </section>
+
+    <!-- ── PANEL 3: Quiz ── -->
+    <section class="quiz-panel" id="quizPanel" hidden>
+      <!-- Adaptive Focus & Selection Reason Banner -->
+      <div class="adaptive-banner" id="adaptiveBanner" hidden style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1rem;">
+        <span style="font-weight: 600; color: #0284c7;">⚡ Next Focus:</span>
+        <span id="adaptiveReasonText" style="color: #0369a1; font-size: 0.95rem;"></span>
+      </div>
+
+      <div class="quiz-header">
+        <h2 id="quizTitle" class="panel-title"></h2>
+        <div class="quiz-meta">
+          <span id="questionCounter"></span>
+          <span class="difficulty-badge" id="diffBadge"></span>
+        </div>
+      </div>
+
+      <!-- Progress bar -->
+      <div class="progress-bar-wrap">
+        <div class="progress-bar-fill" id="progressFill"></div>
+      </div>
+
+      <!-- Question display -->
+      <div class="question-box" id="questionBox">
+        <p class="question-prompt" id="questionPrompt"></p>
+
+        <!-- MCQ options -->
+        <div class="options-grid" id="optionsGrid"></div>
+
+        <!-- Short answer / numerical input -->
+        <div class="text-answer-wrap" id="textAnswerWrap" hidden>
+          <textarea id="textAnswer" rows="3" placeholder="Type your answer here&hellip;"></textarea>
+        </div>
+      </div>
+
+      <!-- Source citations -->
+      <div class="source-refs" id="sourceRefs" hidden>
+        <p class="source-label">&#x1F4DA; Source</p>
+        <ul class="source-list" id="sourceList"></ul>
+      </div>
+
+      <!-- Feedback (practice mode) -->
+      <div class="feedback-box" id="feedbackBox" hidden>
+        <p class="feedback-result" id="feedbackResult"></p>
+        <!-- BKT Mastery Update Badge -->
+        <div class="mastery-change-callout" id="masteryChangeCallout" hidden style="margin: 0.5rem 0; padding: 0.6rem 0.8rem; background: #e0f2fe; border-left: 4px solid #0284c7; border-radius: 4px; font-weight: 500; font-size: 0.9rem; color: #0369a1;"></div>
+        
+        <!-- Step 10 Misconception Callout -->
+        <div class="misconception-callout" id="misconceptionCallout" hidden style="margin-top: 0.75rem; padding: 0.85rem; background: #fff5f5; border: 1px solid #fed7d7; border-left: 4px solid #e53e3e; border-radius: 6px;">
+          <p style="font-weight: 700; color: #9b2c2c; margin: 0 0 0.35rem 0;" id="misconceptionTitle">⚠️ Possible Misunderstanding Identified</p>
+          <p style="margin: 0 0 0.5rem 0; font-size: 0.9rem; color: #742a2a;" id="misconceptionDesc"></p>
+          <div id="misconceptionEvidence" style="font-size: 0.85rem; color: #9b2c2c; font-style: italic; margin-bottom: 0.6rem;"></div>
+          <a id="remediationLink" href="remediation.html" class="btn-primary" style="display: inline-block; font-size: 0.85rem; padding: 0.4rem 0.8rem; text-decoration: none; border-radius: 4px; background: #c53030;">Review This Concept in Remediation →</a>
+        </div>
+
+        <p class="feedback-text" id="feedbackText"></p>
+        <p class="explanation-text" id="explanationText"></p>
+      </div>
+
+      <!-- Navigation -->
+      <div class="quiz-nav">
+        <button class="btn-secondary" id="skipBtn">Skip</button>
+        <button class="btn-primary" id="submitAnswerBtn">Submit Answer</button>
+        <button class="btn-primary" id="nextBtn" hidden>Next Question &#8594;</button>
+      </div>
+    </section>
+
+    <!-- ── PANEL 4: Results ── -->
+    <section class="quiz-panel" id="resultsPanel" hidden>
+      <h2 class="panel-title" id="resultsPanelTitle">&#x1F4CA; Quiz Results</h2>
+      <div class="score-card">
+        <div class="score-circle" id="scoreCircle">
+          <span class="score-pct" id="scorePct"></span>
+          <span class="score-grade" id="scoreGrade"></span>
+        </div>
+        <div class="score-stats">
+          <p><strong id="correctCount"></strong> correct out of <strong id="totalCount"></strong></p>
+          <p class="score-message" id="scoreMessage"></p>
+        </div>
+      </div>
+
+      <!-- Adaptive Session Mastery Changes Summary -->
+      <div class="adaptive-summary-card" id="adaptiveSummaryCard" hidden style="margin: 1rem 0; padding: 1rem; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;">
+        <h3 style="margin-bottom: 0.5rem; color: #1e293b;">⚡ Mastery Progress Summary</h3>
+        <div id="masteryChangesList"></div>
+      </div>
+
+      <!-- Per-question breakdown -->
+      <div class="results-breakdown" id="resultsBreakdown"></div>
+
+      <div class="results-actions">
+        <button class="btn-primary" id="retryBtn">Try Again</button>
+        <a href="dashboard.html" class="btn-secondary">Back to Dashboard</a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Built for learning.</p>
+  </footer>
+
+  <script src="../js/quiz.js"></script>
+</body>
+</html>

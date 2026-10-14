@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VIDYA-X AI — Your Personal AI Study Companion</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="logo">VIDYA-X <span class="logo-accent">AI</span></div>
+    <p class="tagline">Your Personal AI Study Companion</p>
+  </header>
+
+  <!-- ===== Main Form Section ===== -->
+  <main class="form-section">
+    <div class="form-card">
+      <h1 class="form-title">Let's personalize your learning</h1>
+      <p class="form-subtitle">
+        Tell us a little about yourself so VIDYA-X can adapt your study experience.
+      </p>
+
+      <form id="profileForm" novalidate>
+
+        <!-- Student Name -->
+        <div class="form-group">
+          <label for="studentName">Student Name <span class="required">*</span></label>
+          <input
+            type="text"
+            id="studentName"
+            name="studentName"
+            placeholder="e.g. Rahul Sharma"
+            required
+          >
+          <span class="error-msg" id="studentNameError"></span>
+        </div>
+
+        <!-- Course Name -->
+        <div class="form-group">
+          <label for="courseName">Course Name <span class="required">*</span></label>
+          <input
+            type="text"
+            id="courseName"
+            name="courseName"
+            placeholder="e.g. Physics, Data Structures"
+            required
+          >
+          <span class="error-msg" id="courseNameError"></span>
+        </div>
+
+        <!-- Preferred Language -->
+        <div class="form-group">
+          <label for="preferredLanguage">Preferred Language <span class="required">*</span></label>
+          <select id="preferredLanguage" name="preferredLanguage" required>
+            <option value="">— Select language —</option>
+            <option value="English">English</option>
+            <option value="Hindi">Hindi</option>
+            <option value="Hinglish">Hinglish</option>
+          </select>
+          <span class="error-msg" id="preferredLanguageError"></span>
+        </div>
+
+        <!-- Exam Date (optional) -->
+        <div class="form-group">
+          <label for="examDate">Exam Date <span class="optional-tag">(optional)</span></label>
+          <input type="date" id="examDate" name="examDate">
+          <span class="error-msg" id="examDateError"></span>
+        </div>
+
+        <!-- Daily Study Time -->
+        <div class="form-group">
+          <label for="dailyStudyTime">Daily Study Time</label>
+          <select id="dailyStudyTime" name="dailyStudyTime">
+            <option value="30 minutes">30 minutes</option>
+            <option value="1 hour">1 hour</option>
+            <option value="2 hours" selected>2 hours</option>
+            <option value="3 hours">3 hours</option>
+            <option value="4+ hours">4+ hours</option>
+          </select>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn-primary" id="submitBtn">
+          Create Course
+        </button>
+
+        <!-- Success message (hidden by default) -->
+        <div class="success-msg" id="successMsg">
+          🎉 Your study profile is ready!
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Built for learning.</p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

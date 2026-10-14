@@ -1,0 +1,118 @@
+{
+  "run_id": "test_suite_run_001",
+  "dataset_version": "1.0",
+  "timestamp": "2026-10-13T10:26:40.433120+00:00",
+  "deterministic_only": true,
+  "total_cases": 10,
+  "passed_cases": 3,
+  "failed_cases": 7,
+  "pass_rate_percentage": 30.0,
+  "metrics": {
+    "recall_at_k": {
+      "metric_name": "recall_at_k",
+      "category": "Retrieval Quality",
+      "definition": "Fraction of relevant chunks retrieved in top 3",
+      "result": 0.2,
+      "numerator": null,
+      "denominator": null,
+      "benchmark_target": 0.8,
+      "status": "failed",
+      "evaluated_cases_count": 5
+    },
+    "precision_at_k": {
+      "metric_name": "precision_at_k",
+      "category": "Retrieval Quality",
+      "definition": "Fraction of top 3 retrieved chunks that are relevant",
+      "result": 0.2,
+      "numerator": null,
+      "denominator": null,
+      "benchmark_target": 0.6,
+      "status": "failed",
+      "evaluated_cases_count": 5
+    },
+    "hit_rate_at_k": {
+      "metric_name": "hit_rate_at_k",
+      "category": "Retrieval Quality",
+      "definition": "Fraction of queries where at least 1 relevant chunk was in top 3",
+      "result": 0.2,
+      "numerator": null,
+      "denominator": null,
+      "benchmark_target": 0.9,
+      "status": "failed",
+      "evaluated_cases_count": 5
+    },
+    "mrr": {
+      "metric_name": "mrr",
+      "category": "Retrieval Quality",
+      "definition": "Mean Reciprocal Rank of first relevant chunk retrieved",
+      "result": 0.2,
+      "numerator": null,
+      "denominator": null,
+      "benchmark_target": 0.85,
+      "status": "failed",
+      "evaluated_cases_count": 5
+    },
+    "course_isolation_violation_count": {
+      "metric_name": "course_isolation_violation_count",
+      "category": "Security & Boundaries",
+      "definition": "Number of chunks retrieved from a foreign course ID",
+      "result": 0.0,
+      "numerator": null,
+      "denominator": null,
+      "benchmark_target": 0.0,
+      "status": "passed",
+      "evaluated_cases_count": 5
+    },
+    "unsupported_question_abstention_rate": {
+      "metric_name": "unsupported_question_abstention_rate",
+      "category": "RAG & Abstention Quality",
+      "definition": "Fraction of unsupported questions correctly declined due to insufficient course material",
+      "result": 1.0,
+      "numerator": null,
+      "denominator": null,
+      "benchmark_target": 0.85,
+      "status": "passed",
+      "evaluated_cases_count": 2
+    },
+    "grounded_answer_accuracy": {
+      "metric_name": "grounded_answer_accuracy",
+      "category": "RAG & Abstention Quality",
+      "definition": "Fraction of supported course questions accurately answered with grounding",
+      "result": 0.0,
+      "numerator": null,
+      "denominator": null,
+      "benchmark_target": 0.9,
+      "status": "failed",
+      "evaluated_cases_count": 3
+    },
+    "false_abstention_rate": {
+      "metric_name": "false_abstention_rate",
+      "category": "RAG & Abstention Quality",
+      "definition": "Fraction of supported questions incorrectly declined",
+      "result": 1.0,
+      "numerator": null,
+      "denominator": null,
+      "benchmark_target": 0.1,
+      "status": "failed",
+      "evaluated_cases_count": 3
+    }
+  },
+  "quality_gates": [
+    {
+      "gate_name": "Gate: course_isolation_violation_count",
+      "metric_name": "course_isolation_violation_count",
+      "threshold": 0.0,
+      "actual_value": 0.0,
+      "passed": true
+    },
+    {
+      "gate_name": "Gate: unsupported_question_abstention_rate",
+      "metric_name": "unsupported_question_abstention_rate",
+      "threshold": 0.85,
+      "actual_value": 1.0,
+      "passed": true
+    }
+  ],
+  "quality_gates_passed": true,
+  "gate_failures": []
+}

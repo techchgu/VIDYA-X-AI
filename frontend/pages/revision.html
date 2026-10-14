@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revision Studio — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/revision.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="logo">VIDYA-X <span class="logo-accent">AI</span></div>
+    <p class="tagline">Personalized Revision Materials & Study Guides</p>
+  </header>
+
+  <main class="revision-container">
+
+    <!-- Title & Intro -->
+    <div class="revision-header-card">
+      <h2>📖 Revision Studio</h2>
+      <p class="subtitle">Generate course-grounded revision notes, exam cheat sheets, formula lists, comparison tables, and weak-topic study guides tailored to your learning progress.</p>
+    </div>
+
+    <div class="revision-grid">
+
+      <!-- ===== LEFT PANEL: Controls ===== -->
+      <section class="control-panel">
+        <h3 class="panel-subtitle">Create New Revision Resource</h3>
+
+        <form id="revisionForm">
+          <div class="form-group">
+            <label for="courseIdInput">Course ID</label>
+            <input type="text" id="courseIdInput" placeholder="e.g. physics-101" required>
+          </div>
+
+          <div class="form-group">
+            <label for="topicSelect">Focus Topic</label>
+            <select id="topicSelect">
+              <option value="">✨ All Topics (Adaptive / Personalized)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="materialTypeSelect">Material Type</label>
+            <select id="materialTypeSelect">
+              <option value="topic_summary">Topic Summary</option>
+              <option value="revision_notes" selected>Detailed Revision Notes</option>
+              <option value="exam_revision_sheet">Exam Revision Sheet</option>
+              <option value="formula_sheet">Formula & Variable Sheet</option>
+              <option value="concept_comparison">Concept Comparison Table</option>
+              <option value="definitions_terminology">Key Definitions & Terminology</option>
+              <option value="quick_checklist">Quick-Review Checklist</option>
+              <option value="weak_topic_study_guide">Targeted Weak-Topic Study Guide</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="depthSelect">Depth</label>
+            <select id="depthSelect">
+              <option value="concise">Concise (Bullet Points & Quick Recall)</option>
+              <option value="standard" selected>Standard (Balanced Overview)</option>
+              <option value="detailed">Detailed (Comprehensive In-Depth Notes)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="languageSelect">Language</label>
+            <select id="languageSelect">
+              <option value="English" selected>English</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Hinglish">Hinglish</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="display: flex; align-items: center; gap: 0.5rem; margin-top: 0.5rem;">
+            <input type="checkbox" id="personalizationToggle" checked style="width: auto;">
+            <label for="personalizationToggle" style="margin: 0; font-weight: 500; font-size: 0.9rem;">Enable Personalization (BKT Mastery & Misconceptions)</label>
+          </div>
+
+          <div id="formError" class="form-error" hidden></div>
+
+          <button type="submit" id="generateBtn" class="btn-primary" style="width: 100%; margin-top: 1rem;">⚡ Generate Grounded Material</button>
+        </form>
+
+        <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e2e8f0;">
+
+        <!-- Saved Materials List -->
+        <h3 class="panel-subtitle">Library of Saved Materials</h3>
+        <div id="savedMaterialsList">
+          <p style="color: #64748b; font-size: 0.85rem;">Loading saved materials&hellip;</p>
+        </div>
+
+        <a href="dashboard.html" class="back-link" style="display: inline-block; margin-top: 1.5rem;">&#8592; Back to Dashboard</a>
+      </section>
+
+      <!-- ===== RIGHT PANEL: Display ===== -->
+      <section class="display-panel">
+
+        <!-- Initial Placeholder State -->
+        <div id="placeholderState" class="placeholder-box">
+          <div class="placeholder-icon">📚</div>
+          <h3>Your Generated Material Will Appear Here</h3>
+          <p>Select your course, topic, and material type on the left, then click <strong>Generate Grounded Material</strong> to start.</p>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-box" hidden>
+          <div class="spinner"></div>
+          <p id="loadingText">Synthesizing course-grounded revision material&hellip;</p>
+        </div>
+
+        <!-- Resource View Container -->
+        <div id="resourceView" class="resource-card" hidden>
+
+          <div class="resource-header">
+            <div>
+              <span id="resBadge" class="type-badge">Revision Notes</span>
+              <h2 id="resTitle" class="res-title"></h2>
+            </div>
+            <div class="res-meta" id="resMeta"></div>
+          </div>
+
+          <!-- Personalization Banner -->
+          <div id="personalizationBanner" class="personalization-banner" hidden>
+            <p id="personalizationTitle" style="font-weight: 700; margin: 0 0 0.35rem 0; font-size: 0.95rem;"></p>
+            <div id="personalizationReasons" style="font-size: 0.85rem;"></div>
+          </div>
+
+          <!-- Overview -->
+          <div id="resOverview" class="res-overview" hidden></div>
+
+          <!-- Sections List -->
+          <div id="resSections" class="res-sections"></div>
+
+          <!-- Comparison Matrix -->
+          <div id="comparisonWrap" class="comparison-wrap" hidden>
+            <h3 class="section-title">📊 Concept Comparisons</h3>
+            <div id="comparisonBox"></div>
+          </div>
+
+          <!-- Misconception Corrections -->
+          <div id="misconceptionsWrap" class="misconceptions-wrap" hidden>
+            <h3 class="section-title" style="color: #9b2c2c;">⚠️ Misconception Clarifications</h3>
+            <div id="misconceptionsList"></div>
+          </div>
+
+          <!-- Self Check -->
+          <div id="selfCheckWrap" class="self-check-wrap" hidden>
+            <h3 class="section-title">💡 Quick Self-Check</h3>
+            <div id="selfCheckList"></div>
+          </div>
+
+          <!-- Grounded Sources Footer -->
+          <div id="sourcesWrap" class="sources-wrap" hidden>
+            <h4 class="sources-title">📚 Verified Course Sources</h4>
+            <ul id="sourcesList" class="sources-list"></ul>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Built for learning.</p>
+  </footer>
+
+  <script src="../js/revision.js"></script>
+</body>
+</html>

@@ -1,0 +1,294 @@
+/* ============================================
+   VIDYA-X AI — Upload Page Styles (Step 2)
+   ============================================ */
+
+/* ---------- Back Navigation ---------- */
+.nav-back {
+  display: inline-block;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6366f1;
+  text-decoration: none;
+  margin-bottom: 1.25rem;
+  transition: color 0.2s;
+}
+
+.nav-back:hover {
+  color: #4f46e5;
+}
+
+.nav-back:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ---------- Upload Section Layout ---------- */
+.upload-section {
+  flex: 1;
+  max-width: 680px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem 1rem 3rem;
+}
+
+.upload-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.upload-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.upload-subtitle {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-bottom: 1.5rem;
+}
+
+/* ---------- Drop Zone ---------- */
+.drop-zone {
+  border: 2px dashed #cbd5e1;
+  border-radius: 14px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  background: #f8fafc;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.drop-zone:hover,
+.drop-zone.drag-over {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+.drop-zone-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.drop-zone-text {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.25rem;
+}
+
+.drop-zone-or {
+  font-size: 0.85rem;
+  color: #94a3b8;
+  margin: 0.5rem 0;
+}
+
+.btn-choose {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #6366f1;
+  background: #ffffff;
+  border: 1.5px solid #6366f1;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-choose:hover {
+  background: #6366f1;
+  color: #ffffff;
+}
+
+.btn-choose:focus-visible {
+  outline: 3px solid #6366f1;
+  outline-offset: 2px;
+}
+
+.file-input {
+  display: none;
+}
+
+.drop-zone-hint {
+  font-size: 0.78rem;
+  color: #94a3b8;
+  margin-top: 0.5rem;
+}
+
+/* ---------- Selected / Uploaded Section ---------- */
+.selected-section {
+  margin-top: 1.5rem;
+}
+
+.section-label {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 0.75rem;
+}
+
+.uploaded-section {
+  margin-top: 0.5rem;
+}
+
+/* ---------- File List ---------- */
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* ---------- File Item Card ---------- */
+.file-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+}
+
+.file-item-error {
+  border-color: #fecaca;
+  background: #fef2f2;
+}
+
+.file-item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.file-item-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.file-item-details {
+  flex: 1;
+  min-width: 0;                /* allow text to truncate */
+}
+
+.file-item-name {
+  display: block;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-item-meta {
+  display: block;
+  font-size: 0.78rem;
+  color: #64748b;
+}
+
+.file-error-text {
+  display: block;
+  font-size: 0.78rem;
+  color: #ef4444;
+  margin-top: 0.15rem;
+}
+
+.file-item-status {
+  font-size: 0.8rem;
+  color: #64748b;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.status-uploaded,
+.status-processed {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.status-processing {
+  color: #4f46e5;
+  font-weight: 600;
+}
+
+.status-failed {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+/* ---------- Remove / Delete Buttons ---------- */
+.btn-remove,
+.btn-delete {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0.25rem 0.35rem;
+  border-radius: 6px;
+  flex-shrink: 0;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.btn-remove:hover,
+.btn-delete:hover {
+  color: #ef4444;
+  background: #fef2f2;
+}
+
+.btn-remove:focus-visible,
+.btn-delete:focus-visible {
+  outline: 2px solid #ef4444;
+  outline-offset: 2px;
+}
+
+/* ---------- Progress Bar ---------- */
+.progress-bar {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  margin-top: 0.6rem;
+  overflow: hidden;
+  display: none;               /* hidden by default */
+}
+
+.progress-bar.active {
+  display: block;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.08s linear;
+}
+
+/* ---------- Upload Button ---------- */
+.btn-upload {
+  margin-top: 1rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 600px) {
+  .upload-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .drop-zone {
+    padding: 1.75rem 1rem;
+  }
+
+  .file-item-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .file-item-status {
+    width: 100%;
+    padding-left: 2.25rem;     /* align with text after icon */
+  }
+}

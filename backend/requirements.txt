@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+python-multipart
+pymupdf
+python-pptx
+faster-whisper
+sqlalchemy>=2.0
+psycopg[binary]
+pgvector
+python-dotenv

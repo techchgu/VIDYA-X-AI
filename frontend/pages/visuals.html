@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visual Intelligence Studio — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/visuals.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="logo">VIDYA-X <span class="logo-accent">AI</span></div>
+    <p class="tagline">Multimodal Visual Intelligence &amp; Diagram Understanding</p>
+    <nav class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="upload.html">Materials</a>
+      <a href="tutor.html">AI Tutor</a>
+      <a href="visuals.html" class="active">Visuals</a>
+      <a href="quiz.html">Practice</a>
+    </nav>
+  </header>
+
+  <!-- ===== Main Container ===== -->
+  <main class="visuals-main">
+
+    <!-- Top Hero Section -->
+    <section class="visuals-hero">
+      <div class="hero-content">
+        <h1>👁️ Multimodal Visual Intelligence Engine</h1>
+        <p>Extract, describe, index, and query diagrams, charts, plots, equations, and video frames directly from your uploaded course materials.</p>
+      </div>
+      <div class="provider-badge" id="providerBadge">
+        <span class="badge-dot"></span>
+        <span id="providerText">Checking Vision Model...</span>
+      </div>
+    </section>
+
+    <!-- Controls & Actions Bar -->
+    <section class="visuals-toolbar">
+      <div class="search-box">
+        <input type="text" id="visualSearchInput" placeholder="Search visuals (e.g. 'circuit diagram', 'photosynthesis flowchart', 'velocity graph')...">
+        <button id="visualSearchBtn" class="btn-primary">Search Visuals</button>
+        <button id="clearSearchBtn" class="btn-secondary" style="display:none;">Clear</button>
+      </div>
+
+      <div class="filters-row">
+        <div class="filter-group">
+          <label for="filterSource">Source Format:</label>
+          <select id="filterSource">
+            <option value="">All Formats</option>
+            <option value="pdf">PDF Textbook / Notes</option>
+            <option value="ppt">PowerPoint Slides</option>
+            <option value="video">Lecture Video Frames</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="filterAssetType">Visual Type:</label>
+          <select id="filterAssetType">
+            <option value="">All Types</option>
+            <option value="diagram">Diagrams &amp; Circuits</option>
+            <option value="chart">Charts &amp; Plots</option>
+            <option value="table">Tables &amp; Matrices</option>
+            <option value="equation">Mathematical Equations</option>
+            <option value="flowchart">Flowcharts &amp; Processes</option>
+            <option value="scientific_illustration">Scientific Illustrations</option>
+            <option value="video_frame">Video Frames</option>
+            <option value="embedded_image">Embedded Images</option>
+          </select>
+        </div>
+
+        <div class="action-buttons">
+          <button id="processVisualsBtn" class="btn-action">⚡ Process Materials for Visuals</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Processing Modal / Banner -->
+    <div id="processModal" class="modal-backdrop" style="display: none;">
+      <div class="modal-card">
+        <h3>Process Course Material Visuals</h3>
+        <p>Select an uploaded course material to scan and extract visual assets:</p>
+        <div class="form-group">
+          <label for="materialSelect">Course Material:</label>
+          <select id="materialSelect" class="form-select">
+            <option value="">Loading materials...</option>
+          </select>
+        </div>
+        <div class="form-checkbox">
+          <label>
+            <input type="checkbox" id="skipVisionCheckbox"> Offline mode (extract images without calling external Vision LLM)
+          </label>
+        </div>
+        <div id="processStatusBox" class="status-box" style="display: none;"></div>
+        <div class="modal-actions">
+          <button id="startProcessBtn" class="btn-primary">Start Extraction</button>
+          <button id="closeModalBtn" class="btn-secondary">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Search / Filter State Banner -->
+    <div id="searchNotice" class="search-notice" style="display: none;">
+      <span id="searchNoticeText"></span>
+    </div>
+
+    <!-- Gallery Grid -->
+    <section class="gallery-container">
+      <div id="loadingIndicator" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading course visual assets...</p>
+      </div>
+
+      <div id="emptyState" class="empty-state" style="display: none;">
+        <span class="empty-icon">🖼️</span>
+        <h3>No visual assets found</h3>
+        <p>Upload course documents with diagrams, slides, or videos, then click <strong>"Process Materials for Visuals"</strong> to extract them.</p>
+      </div>
+
+      <div id="visualsGrid" class="visuals-grid">
+        <!-- Visual cards injected via JS -->
+      </div>
+    </section>
+
+    <!-- Detail Drawer / Modal -->
+    <div id="detailModal" class="modal-backdrop" style="display: none;">
+      <div class="modal-card modal-large">
+        <div class="detail-header">
+          <h2 id="detailTitle">Visual Asset Detail</h2>
+          <button id="closeDetailBtn" class="btn-close">&times;</button>
+        </div>
+        <div class="detail-body">
+          <div class="detail-image-pane">
+            <img id="detailImage" src="" alt="Visual preview">
+            <div id="detailImageFallback" class="image-fallback" style="display:none;">
+              <span>No image preview available</span>
+            </div>
+            <div class="citation-tag" id="detailCitation"></div>
+          </div>
+          <div class="detail-info-pane">
+            <div class="info-block">
+              <h4>Description &amp; AI Analysis</h4>
+              <p id="detailDescription"></p>
+            </div>
+            <div class="info-block" id="detailLabelsBlock" style="display:none;">
+              <h4>Extracted Labels</h4>
+              <div id="detailLabels" class="tag-cloud"></div>
+            </div>
+            <div class="info-block" id="detailRelsBlock" style="display:none;">
+              <h4>Component Relationships</h4>
+              <ul id="detailRels" class="rel-list"></ul>
+            </div>
+            <div class="info-block" id="detailChartBlock" style="display:none;">
+              <h4>Chart Axes &amp; Trends</h4>
+              <div id="detailChartData" class="chart-summary"></div>
+            </div>
+            <div class="info-block" id="detailEquationsBlock" style="display:none;">
+              <h4>Mathematical Equations</h4>
+              <div id="detailEquations" class="equation-box"></div>
+            </div>
+            <div class="info-block">
+              <h4>Source Location</h4>
+              <div id="detailSourceMeta" class="meta-grid"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Course-Aware Multimodal Learning.</p>
+  </footer>
+
+  <script src="../js/visuals.js"></script>
+</body>
+</html>

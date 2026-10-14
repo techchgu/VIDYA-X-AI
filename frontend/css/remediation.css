@@ -1,0 +1,219 @@
+/* ===========================================================================
+   VIDYA-X AI — Remediation Page CSS (Step 10)
+   =========================================================================== */
+
+.remediation-main {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.remediation-panel {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.prereq-callout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #fffbe6;
+  border: 1px solid #ffe58f;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  color: #873800;
+  font-size: 0.95rem;
+}
+
+.callout-icon {
+  font-size: 1.3rem;
+}
+
+.rem-header-card {
+  border-bottom: 2px solid #f1f5f9;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.rem-topic-badge {
+  display: inline-block;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  margin-bottom: 0.5rem;
+}
+
+.rem-title {
+  font-size: 1.6rem;
+  color: #0f172a;
+  margin: 0.25rem 0;
+}
+
+.rem-misconception-subtitle {
+  color: #dc2626;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 0.4rem;
+}
+
+.rem-section {
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rem-text {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #334155;
+  margin-bottom: 1rem;
+}
+
+.concept-key-box {
+  background: #f8fafc;
+  border-left: 4px solid #0284c7;
+  padding: 0.85rem 1.1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-top: 0.75rem;
+}
+
+.comparison-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.comparison-card {
+  padding: 1.25rem;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.mistaken-card {
+  background: #fef2f2;
+  border-color: #fecaca;
+}
+
+.mistaken-card h3 {
+  color: #991b1b;
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.correct-card {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.correct-card h3 {
+  color: #166534;
+  margin-top: 0;
+  font-size: 1rem;
+}
+
+.takeaway-banner {
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  color: #3730a3;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.worked-example-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.example-problem {
+  font-weight: 600;
+  color: #1e293b;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.example-steps {
+  padding-left: 1.25rem;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.citation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.citation-list li {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 0.6rem 0.9rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #475569;
+}
+
+.self-check-card, .practice-card {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.self-check-options button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.65rem 0.9rem;
+  margin-bottom: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.self-check-options button:hover {
+  background: #e2e8f0;
+}
+
+.self-check-feedback {
+  margin-top: 0.75rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.rem-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}

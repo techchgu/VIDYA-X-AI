@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app-shell.css">
+</head>
+<body>
+
+  <!-- Demo Banner -->
+  <div id="demoBanner" class="demo-banner" style="display: none;">
+    <span>⚡ <strong>DEMO MODE ACTIVE:</strong> Exploring Newton's Laws &amp; Classical Mechanics</span>
+    <div style="display:flex; gap:0.5rem;">
+      <button onclick="window.VidyaDemo.resetDemo()">Reset Demo Data</button>
+      <button onclick="window.VidyaDemo.exitDemo()">Exit Demo</button>
+    </div>
+  </div>
+
+  <!-- Shared App Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <a href="dashboard.html" class="app-brand">VIDYA-X <span class="brand-accent">AI</span></a>
+      <span class="course-context-pill" id="headerCourseName">Loading Course...</span>
+    </div>
+    <nav class="header-nav">
+      <a href="dashboard.html" class="nav-item active">Dashboard</a>
+      <a href="upload.html" class="nav-item">Materials</a>
+      <a href="tutor.html" class="nav-item">AI Tutor</a>
+      <a href="visuals.html" class="nav-item">Visuals</a>
+      <a href="quiz.html" class="nav-item">Practice</a>
+      <a href="progress.html" class="nav-item">Mastery</a>
+      <a href="study-plan.html" class="nav-item">Study Plan</a>
+      <button id="demoToggleBtn" class="btn-primary" style="font-size:0.75rem; padding:0.3rem 0.6rem; margin-left:0.5rem;" onclick="window.VidyaDemo.initDemo()">⚡ Demo Mode</button>
+    </nav>
+  </header>
+
+  <!-- Dashboard Main Container -->
+  <main class="dashboard-section" style="max-width: 1200px; margin: 1.5rem auto; padding: 0 1rem;">
+
+    <!-- Welcome Profile Card -->
+    <div class="dashboard-welcome" id="dashboardWelcome">
+      <!-- Filled by JS -->
+    </div>
+
+    <!-- First-Time Onboarding Checklist (Step 15) -->
+    <div class="onboarding-card" id="onboardingCard">
+      <h3>🚀 Quick Start Onboarding Checklist</h3>
+      <p style="margin: 0; font-size: 0.85rem; color: #475569;">Complete these steps to experience the full grounded &amp; adaptive learning loop:</p>
+      <div class="checklist-items">
+        <a href="../index.html" class="checklist-step">
+          <span class="step-icon step-done">✓</span>
+          <span>1. Set Up Study Profile</span>
+        </a>
+        <a href="upload.html" class="checklist-step">
+          <span class="step-icon" id="checkMat">📁</span>
+          <span>2. Upload Course Materials</span>
+        </a>
+        <a href="tutor.html" class="checklist-step">
+          <span class="step-icon" id="checkTutor">💬</span>
+          <span>3. Ask AI Tutor (Citations)</span>
+        </a>
+        <a href="quiz.html?mode=adaptive" class="checklist-step">
+          <span class="step-icon" id="checkQuiz">⚡</span>
+          <span>4. Take Adaptive Quiz</span>
+        </a>
+        <a href="study-plan.html" class="checklist-step">
+          <span class="step-icon" id="checkPlan">📅</span>
+          <span>5. Review Smart Study Plan</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Recommended For You (Step 9) -->
+    <div class="recommendations-section" style="margin-top: 1.5rem; margin-bottom: 1.5rem; padding: 1.25rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+      <h2 class="section-heading" style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem; color: #1e293b;">
+        🎯 Recommended For You
+      </h2>
+      <div id="recommendationsBox">
+        <p style="color: #64748b; font-size: 0.95rem;">Loading personalized recommendations&hellip;</p>
+      </div>
+    </div>
+
+    <!-- Needs Attention / Misconceptions (Step 10) -->
+    <div class="misconceptions-section" id="needsAttentionSection" style="margin-top: 1.5rem; margin-bottom: 1.5rem; padding: 1.25rem; background: #fff5f5; border: 1px solid #fed7d7; border-left: 5px solid #e53e3e; border-radius: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);" hidden>
+      <h2 class="section-heading" style="margin-top: 0; display: flex; align-items: center; gap: 0.5rem; font-size: 1.15rem; color: #9b2c2c;">
+        ⚠️ Needs Attention — Active Misconceptions
+      </h2>
+      <div id="misconceptionsBox">
+        <!-- Filled by JS -->
+      </div>
+    </div>
+
+    <!-- Feature cards -->
+    <h2 class="section-heading" style="font-size: 1.25rem; margin-bottom: 1rem;">Explore Features</h2>
+
+    <div class="feature-grid">
+      <div class="feature-card" id="materialsCard">
+        <span class="feature-icon">📚</span>
+        <h3>Course Materials</h3>
+        <p id="materialsCount">Loading materials count...</p>
+        <a href="upload.html" class="card-link">Manage Materials</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🤖</span>
+        <h3>Grounded AI Tutor</h3>
+        <p>Source-cited answers strictly from your course notes.</p>
+        <a href="tutor.html" class="card-link" style="font-weight: 600;">Ask AI Tutor</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h3>Adaptive Practice</h3>
+        <p>Dynamic questions tailored to your estimated mastery.</p>
+        <a href="quiz.html?mode=adaptive" class="card-link" style="font-weight: 600;">Start Practice</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🛠️</span>
+        <h3>Remediation &amp; Review</h3>
+        <p>Clear recurring misunderstandings with targeted practice.</p>
+        <a href="remediation.html" class="card-link">Review Misconceptions</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📖</span>
+        <h3>Revision Studio</h3>
+        <p id="revisionCount">Course-grounded study notes &amp; guides.</p>
+        <a href="revision.html" class="card-link" style="font-weight: 600;">Open Revision Studio</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🎴</span>
+        <h3>Flashcards Studio</h3>
+        <p id="flashcardCount">Active recall practice decks.</p>
+        <a href="flashcards.html" class="card-link" style="font-weight: 600;">Practice Flashcards</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📅</span>
+        <h3>Smart Study Planner</h3>
+        <p id="todayTasksCount">Personalized daily &amp; weekly schedules.</p>
+        <a href="study-plan.html" class="card-link" style="font-weight: 600;">Open Study Planner</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📊</span>
+        <h3>Exam Readiness</h3>
+        <p id="readinessSummary">Empirical mastery &amp; coverage tracker.</p>
+        <a href="exam-readiness.html" class="card-link" style="font-weight: 600;">Check Readiness</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">📈</span>
+        <h3>Your Progress</h3>
+        <p>Track BKT concept &amp; topic mastery over time.</p>
+        <a href="progress.html" class="card-link">View Progress</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">👁️</span>
+        <h3>Visual Intelligence</h3>
+        <p id="visualsCount">Explore diagrams, charts, plots &amp; video frames.</p>
+        <a href="visuals.html" class="card-link" style="font-weight: 600;">Open Visuals Studio</a>
+      </div>
+
+      <div class="feature-card">
+        <span class="feature-icon">🧪</span>
+        <h3>Evaluation &amp; Benchmarks</h3>
+        <p id="evaluationRunSummary">Reproducible quality assessment across all AI components.</p>
+        <a href="evaluation.html" class="card-link" style="font-weight: 600;">Open Evaluation Studio</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Course-Aware Multimodal Learning.</p>
+  </footer>
+
+  <script src="../config.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/demo-mode.js"></script>
+  <script src="../js/app.js"></script>
+</body>
+</html>

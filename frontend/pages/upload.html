@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload Materials — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app-shell.css">
+  <link rel="stylesheet" href="../css/upload.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <a href="dashboard.html" class="app-brand">VIDYA-X <span class="brand-accent">AI</span></a>
+    </div>
+    <nav class="header-nav">
+      <a href="dashboard.html" class="nav-item">Dashboard</a>
+      <a href="upload.html" class="nav-item active">Materials</a>
+      <a href="tutor.html" class="nav-item">AI Tutor</a>
+      <a href="visuals.html" class="nav-item">Visuals</a>
+      <a href="quiz.html" class="nav-item">Practice</a>
+      <a href="progress.html" class="nav-item">Mastery</a>
+      <a href="study-plan.html" class="nav-item">Study Plan</a>
+    </nav>
+  </header>
+
+  <!-- ===== Upload Page ===== -->
+  <main class="upload-section">
+    <a href="dashboard.html" class="nav-back">← Back to Dashboard</a>
+
+    <div class="upload-card">
+      <h1 class="upload-title">Add Your Course Material</h1>
+      <p class="upload-subtitle">
+        Upload textbooks, slides and lecture videos to build your personalized course.
+      </p>
+
+      <!-- Drop Zone -->
+      <div class="drop-zone" id="dropZone">
+        <span class="drop-zone-icon">📁</span>
+        <p class="drop-zone-text">Drag &amp; Drop your course materials here</p>
+        <p class="drop-zone-or">or</p>
+        <button type="button" class="btn-choose" id="chooseBtn">Choose Files</button>
+        <input
+          type="file"
+          id="fileInput"
+          class="file-input"
+          accept=".pdf,.ppt,.pptx,.mp4"
+          multiple
+          aria-label="Select course material files"
+        >
+        <p class="drop-zone-hint">Supported formats: PDF, PPT, PPTX, MP4</p>
+        <p class="drop-zone-hint">Maximum file size: 500 MB per file</p>
+      </div>
+
+      <!-- Selected Files (hidden until files are picked) -->
+      <div id="selectedSection" class="selected-section" style="display:none;">
+        <h2 class="section-label">Selected Files</h2>
+        <div id="selectedList" class="file-list"></div>
+        <button type="button" class="btn-primary btn-upload" id="uploadBtn" disabled>
+          Upload Materials
+        </button>
+      </div>
+    </div>
+
+    <!-- Uploaded Materials (hidden until at least one exists) -->
+    <div id="uploadedSection" class="uploaded-section" style="display:none;">
+      <h2 class="section-heading">Your Course Materials</h2>
+      <div id="uploadedList" class="file-list"></div>
+    </div>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Built for learning.</p>
+  </footer>
+
+  <script src="../js/upload.js"></script>
+</body>
+</html>

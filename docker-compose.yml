@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: vidyax_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: vidya_x
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d vidya_x"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vidyax_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://postgres:password@postgres:5432/vidya_x
+      APP_ENV: production
+      PORT: 8000
+      EMBEDDING_PROVIDER: local
+      EMBEDDING_DIMENSION: 384
+      DEMO_MODE_ENABLED: "true"
+      FRONTEND_ORIGINS: "http://localhost:3000,http://localhost:8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - uploads_data:/app/backend/uploads
+      - visuals_data:/app/backend/visual_assets
+      - extracted_data:/app/backend/extracted
+
+  frontend:
+    image: nginx:alpine
+    container_name: vidyax_frontend
+    restart: unless-stopped
+    ports:
+      - "3000:8000"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+
+volumes:
+  pgdata:
+  uploads_data:
+  visuals_data:
+  extracted_data:

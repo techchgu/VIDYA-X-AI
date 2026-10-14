@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personalized Remediation — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/remediation.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="logo">VIDYA-X <span class="logo-accent">AI</span></div>
+    <p class="tagline">Personalized Remediation & Corrective Teaching</p>
+  </header>
+
+  <!-- ===== Main Content ===== -->
+  <main class="remediation-main">
+
+    <!-- Loading State -->
+    <div class="remediation-panel" id="loadingPanel">
+      <div class="loading-box" style="text-align: center; padding: 2rem;">
+        <div class="spinner" style="margin: 0 auto 1rem;"></div>
+        <p>Loading your personalized learning remediation&hellip;</p>
+      </div>
+    </div>
+
+    <!-- Remediation Session Panel -->
+    <div class="remediation-panel" id="sessionPanel" hidden>
+      
+      <!-- Prerequisite Callout (if applicable) -->
+      <div class="prereq-callout" id="prereqCallout" hidden>
+        <span class="callout-icon">💡</span>
+        <div id="prereqText"></div>
+      </div>
+
+      <!-- Header Card -->
+      <div class="rem-header-card">
+        <div class="rem-topic-badge" id="topicBadge">Topic & Concept</div>
+        <h1 class="rem-title" id="remTitle">Targeted Concept Remediation</h1>
+        <p class="rem-misconception-subtitle" id="misconceptionSubtitle" hidden></p>
+      </div>
+
+      <!-- Grounded Corrective Explanation -->
+      <section class="rem-section">
+        <h2 class="section-title">📘 Corrective Explanation</h2>
+        <p class="rem-text" id="explanationText"></p>
+        <div class="concept-key-box" id="conceptSummaryBox"></div>
+      </section>
+
+      <!-- Mistake vs Correct Comparison -->
+      <section class="rem-section" id="comparisonSection">
+        <h2 class="section-title">⚖️ Common Mistake vs. Correct Approach</h2>
+        <div class="comparison-grid">
+          <div class="comparison-card mistaken-card">
+            <h3>❌ Mistaken Approach</h3>
+            <p id="mistakenText"></p>
+          </div>
+          <div class="comparison-card correct-card">
+            <h3>✅ Correct Approach</h3>
+            <p id="correctText"></p>
+          </div>
+        </div>
+        <div class="takeaway-banner" id="takeawayBanner"></div>
+      </section>
+
+      <!-- Worked Example (if available) -->
+      <section class="rem-section" id="workedExampleSection" hidden>
+        <h2 class="section-title">📝 Step-by-Step Worked Example</h2>
+        <div class="worked-example-card">
+          <p class="example-problem" id="exampleProblem"></p>
+          <ol class="example-steps" id="exampleSteps"></ol>
+        </div>
+      </section>
+
+      <!-- Verified Source Citations -->
+      <section class="rem-section" id="citationsSection">
+        <h2 class="section-title">📚 Verified Course Material Source</h2>
+        <ul class="citation-list" id="citationList"></ul>
+      </section>
+
+      <!-- Interactive Self-Check -->
+      <section class="rem-section" id="selfCheckSection" hidden>
+        <h2 class="section-title">🔍 Quick Self-Check</h2>
+        <div class="self-check-card">
+          <p class="self-check-prompt" id="selfCheckPrompt"></p>
+          <div class="self-check-options" id="selfCheckOptions"></div>
+          <div class="self-check-feedback" id="selfCheckFeedback" hidden></div>
+        </div>
+      </section>
+
+      <!-- Targeted Practice Question Action -->
+      <section class="rem-section" id="practiceSection" hidden>
+        <h2 class="section-title">🎯 Targeted Practice Question</h2>
+        <div class="practice-card">
+          <p id="practicePrompt" style="font-weight: 500; font-size: 1.05rem; margin-bottom: 1rem;"></p>
+          <div id="practiceOptionsGrid" class="options-grid" style="display: grid; gap: 0.5rem; margin-bottom: 1rem;"></div>
+          <button class="btn-primary" id="submitPracticeBtn">Submit Practice Answer</button>
+          <div class="feedback-box" id="practiceFeedbackBox" hidden style="margin-top: 1rem;"></div>
+        </div>
+      </section>
+
+      <!-- Session Actions -->
+      <div class="rem-actions">
+        <button class="btn-primary" id="completeSessionBtn">Mark Remediation Complete</button>
+        <a href="quiz.html?mode=adaptive" class="btn-secondary">Continue Adaptive Practice</a>
+        <a href="dashboard.html" class="back-link">&#8592; Back to Dashboard</a>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Built for learning.</p>
+  </footer>
+
+  <script src="../js/remediation.js"></script>
+</body>
+</html>

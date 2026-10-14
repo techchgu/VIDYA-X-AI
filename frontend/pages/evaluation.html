@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluation & Benchmarks — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/evaluation.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="logo">VIDYA-X <span class="logo-accent">AI</span></div>
+    <p class="tagline">Evaluation &amp; Benchmarking Framework</p>
+    <nav class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="study-plan.html">Study Planner</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="revision.html">Revision Studio</a>
+      <a href="progress.html">Progress</a>
+      <a href="evaluation.html" class="active">Evaluation</a>
+    </nav>
+  </header>
+
+  <!-- ===== Main ===== -->
+  <main class="eval-main">
+
+    <!-- ── Page Title ── -->
+    <div class="eval-page-header">
+      <div>
+        <h1 class="eval-page-title">🧪 System Evaluation &amp; Benchmarks</h1>
+        <p class="eval-page-subtitle">
+          Reproducible quality assessment across RAG, retrieval, citations, quiz generation, 
+          personalization, and study planning. All metrics are computed from real benchmark runs.
+        </p>
+      </div>
+      <a href="dashboard.html" class="back-link">&#8592; Dashboard</a>
+    </div>
+
+    <!-- ── Run Controls ── -->
+    <section class="eval-section eval-controls-card">
+      <h2 class="eval-section-title">▶ Run Benchmark</h2>
+      <div class="controls-grid">
+        <div class="control-group">
+          <label for="taskTypeSelect">Task Type</label>
+          <select id="taskTypeSelect">
+            <option value="">All Tasks</option>
+            <option value="retrieval">Retrieval</option>
+            <option value="rag">RAG / Grounded Answers</option>
+            <option value="citation">Citations</option>
+            <option value="quiz">Quiz Quality</option>
+            <option value="personalization">Personalization</option>
+            <option value="study_plan">Study Planner</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label for="datasetVersionInput">Dataset Version</label>
+          <input type="text" id="datasetVersionInput" value="1.0" placeholder="1.0">
+        </div>
+        <div class="control-group">
+          <label for="maxCasesInput">Max Cases (smoke test)</label>
+          <input type="number" id="maxCasesInput" placeholder="All" min="1" max="200">
+        </div>
+        <div class="control-group control-group--checkbox">
+          <label class="checkbox-label">
+            <input type="checkbox" id="deterministicOnly" checked>
+            Deterministic-only mode (no LLM judge)
+          </label>
+        </div>
+        <div class="control-group control-group--action">
+          <button class="btn-run" id="triggerRunBtn">🚀 Run Evaluation</button>
+        </div>
+      </div>
+      <div id="runStatus" class="run-status" hidden></div>
+    </section>
+
+    <!-- ── Run History ── -->
+    <section class="eval-section">
+      <div class="section-header-row">
+        <h2 class="eval-section-title">📋 Evaluation Runs</h2>
+        <button class="btn-refresh" id="refreshRunsBtn" title="Refresh run list">↻ Refresh</button>
+      </div>
+
+      <div id="runsLoading" class="eval-loading">
+        <div class="spinner-sm"></div> Loading runs…
+      </div>
+      <div id="runsEmpty" class="eval-empty" hidden>
+        No evaluation runs yet. Click <strong>Run Evaluation</strong> above to start.
+      </div>
+      <div id="runsError" class="eval-error" hidden></div>
+
+      <div id="runsTable" hidden>
+        <table class="eval-table" id="runsTableEl">
+          <thead>
+            <tr>
+              <th>Run ID</th>
+              <th>Timestamp</th>
+              <th>Dataset</th>
+              <th>Cases</th>
+              <th>Passed</th>
+              <th>Failed</th>
+              <th>Gate</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="runsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ── Run Detail (shown when a run is selected) ── -->
+    <div id="runDetail" hidden>
+
+      <!-- Quality Gate Banner -->
+      <div id="qualityGateBanner" class="gate-banner"></div>
+
+      <!-- Metrics Summary Cards -->
+      <section class="eval-section">
+        <h2 class="eval-section-title">📊 Metrics Overview</h2>
+        <div id="metricCategoryCards" class="metric-category-grid"></div>
+      </section>
+
+      <!-- Full Metrics Table -->
+      <section class="eval-section">
+        <div class="section-header-row">
+          <h2 class="eval-section-title">📐 All Metrics</h2>
+          <small id="metricSampleNote" class="sample-note"></small>
+        </div>
+        <div id="metricsLoading" class="eval-loading">
+          <div class="spinner-sm"></div> Loading metrics…
+        </div>
+        <div id="metricsError" class="eval-error" hidden></div>
+        <div id="metricsTableWrap" hidden>
+          <table class="eval-table" id="metricsTableEl">
+            <thead>
+              <tr>
+                <th>Metric</th>
+                <th>Category</th>
+                <th>Value</th>
+                <th>Cases (n)</th>
+                <th>Failed / N/A</th>
+                <th>Gate</th>
+                <th>Definition</th>
+              </tr>
+            </thead>
+            <tbody id="metricsTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Case Results Table -->
+      <section class="eval-section">
+        <div class="section-header-row">
+          <h2 class="eval-section-title">🔍 Case Results</h2>
+          <div class="case-filter-row">
+            <select id="caseFilterStatus">
+              <option value="">All statuses</option>
+              <option value="pass">Pass</option>
+              <option value="fail">Fail</option>
+              <option value="skip">Skip / N/A</option>
+              <option value="error">Error</option>
+            </select>
+            <select id="caseFilterType">
+              <option value="">All task types</option>
+              <option value="retrieval">Retrieval</option>
+              <option value="rag">RAG</option>
+              <option value="citation">Citation</option>
+              <option value="quiz">Quiz</option>
+              <option value="personalization">Personalization</option>
+              <option value="study_plan">Study Plan</option>
+            </select>
+          </div>
+        </div>
+        <div id="casesLoading" class="eval-loading">
+          <div class="spinner-sm"></div> Loading case results…
+        </div>
+        <div id="casesError" class="eval-error" hidden></div>
+        <div id="casesTableWrap" hidden>
+          <table class="eval-table eval-table--cases" id="casesTableEl">
+            <thead>
+              <tr>
+                <th>Case ID</th>
+                <th>Task</th>
+                <th>Status</th>
+                <th>Score</th>
+                <th>Message</th>
+              </tr>
+            </thead>
+            <tbody id="casesTableBody"></tbody>
+          </table>
+          <p id="casesCount" class="cases-count"></p>
+        </div>
+      </section>
+
+      <!-- Run Metadata -->
+      <section class="eval-section eval-meta-card">
+        <h2 class="eval-section-title">🔧 Run Metadata</h2>
+        <pre id="runMetadataPre" class="meta-pre"></pre>
+      </section>
+
+    </div><!-- /#runDetail -->
+
+    <!-- ── Definitions & Notices ── -->
+    <section class="eval-section eval-notice-card">
+      <h2 class="eval-section-title">ℹ️ About These Metrics</h2>
+      <ul class="notice-list">
+        <li><strong>Recall@K</strong> — Fraction of relevant chunks appearing in the top-K results. Denominator: total relevant chunks in ground truth.</li>
+        <li><strong>Precision@K</strong> — Fraction of top-K retrieved chunks that are relevant. Denominator: K.</li>
+        <li><strong>Hit Rate@K</strong> — Whether any relevant chunk appears in top-K (1.0 = yes, 0.0 = no), averaged over cases.</li>
+        <li><strong>MRR</strong> — Mean Reciprocal Rank of the first relevant result across cases.</li>
+        <li><strong>nDCG@K</strong> — Normalized Discounted Cumulative Gain; accounts for ranking position of relevant chunks.</li>
+        <li><strong>Citation Resolution Rate</strong> — Fraction of citation IDs that resolve to actual retrieved source records.</li>
+        <li><strong>Abstention Rate</strong> — Fraction of unsupported-question cases where the tutor correctly declines to answer.</li>
+        <li><strong>Valid Question Rate</strong> — Fraction of generated questions passing structural validation.</li>
+        <li><strong>Quality Gates</strong> — Hard thresholds on critical metrics. A failed gate indicates a release-blocking regression.</li>
+        <li class="notice-warning">⚠️ Benchmark performance on synthetic data does not guarantee real-world educational effectiveness. Metrics marked <em>preliminary</em> are based on ≤5 cases.</li>
+        <li>Metrics unavailable due to missing components are shown as <code>N/A</code>, not zero.</li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Built for learning.</p>
+  </footer>
+
+  <script src="../js/evaluation.js"></script>
+</body>
+</html>

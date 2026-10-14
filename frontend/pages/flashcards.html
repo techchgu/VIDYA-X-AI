@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flashcards Studio — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/flashcards.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="logo">VIDYA-X <span class="logo-accent">AI</span></div>
+    <p class="tagline">Grounded Active-Recall Flashcards</p>
+  </header>
+
+  <main class="flashcards-container">
+
+    <!-- Title Card -->
+    <div class="flashcards-header-card">
+      <h2>🎴 Flashcards Studio</h2>
+      <p class="subtitle">Practice active recall with course-grounded flashcards tailored to your mastery levels and misconception evidence.</p>
+    </div>
+
+    <div class="flashcards-layout">
+
+      <!-- ===== LEFT SIDEBAR: Generator & Saved Decks ===== -->
+      <aside class="sidebar-panel">
+        <h3 class="panel-subtitle">Generate Flashcard Deck</h3>
+
+        <form id="deckForm">
+          <div class="form-group">
+            <label for="courseIdInput">Course ID</label>
+            <input type="text" id="courseIdInput" placeholder="e.g. physics-101" required>
+          </div>
+
+          <div class="form-group">
+            <label for="topicSelect">Focus Topic</label>
+            <select id="topicSelect">
+              <option value="">✨ All Course Topics (Adaptive)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cardCountInput">Number of Cards</label>
+            <input type="number" id="cardCountInput" min="3" max="30" value="10">
+          </div>
+
+          <div class="form-group">
+            <label for="languageSelect">Language</label>
+            <select id="languageSelect">
+              <option value="English" selected>English</option>
+              <option value="Hindi">Hindi</option>
+              <option value="Hinglish">Hinglish</option>
+            </select>
+          </div>
+
+          <div id="deckFormError" class="form-error" hidden></div>
+
+          <button type="submit" id="generateDeckBtn" class="btn-primary" style="width: 100%; margin-top: 1rem;">⚡ Generate Flashcard Deck</button>
+        </form>
+
+        <hr style="margin: 1.5rem 0; border: none; border-top: 1px solid #e2e8f0;">
+
+        <!-- Saved Decks -->
+        <h3 class="panel-subtitle">Saved Flashcard Decks</h3>
+        <div id="savedDecksList">
+          <p style="color: #64748b; font-size: 0.85rem;">Loading saved decks&hellip;</p>
+        </div>
+
+        <a href="dashboard.html" class="back-link" style="display: inline-block; margin-top: 1.5rem;">&#8592; Back to Dashboard</a>
+      </aside>
+
+      <!-- ===== MAIN AREA: Interactive Flashcard Viewer ===== -->
+      <section class="viewer-panel">
+
+        <!-- Placeholder State -->
+        <div id="placeholderState" class="placeholder-box">
+          <div class="placeholder-icon">🃏</div>
+          <h3>Select or Generate a Flashcard Deck</h3>
+          <p>Choose a topic on the left and click <strong>Generate Flashcard Deck</strong> to start active recall practice.</p>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-box" hidden>
+          <div class="spinner"></div>
+          <p id="loadingText">Generating course-grounded flashcards&hellip;</p>
+        </div>
+
+        <!-- Flashcard Studio Active Viewer -->
+        <div id="deckViewer" class="deck-viewer-card" hidden>
+
+          <!-- Header & Controls -->
+          <div class="viewer-top-bar">
+            <div>
+              <h3 id="deckTitle" class="deck-title"></h3>
+              <span id="cardCounter" class="card-counter">Card 1 of 10</span>
+            </div>
+            <div class="viewer-actions">
+              <button id="shuffleBtn" class="btn-secondary" style="padding: 0.35rem 0.75rem; font-size: 0.85rem;">🔀 Shuffle</button>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="progress-bar-wrap">
+            <div id="progressFill" class="progress-bar-fill"></div>
+          </div>
+
+          <!-- The Flashcard (Flip Container) -->
+          <div id="cardBox" class="flashcard-box">
+            
+            <!-- Front Face -->
+            <div id="cardFront" class="card-face front-face">
+              <div class="card-badge" id="cardTypeBadge">Concept</div>
+              <div class="card-prompt" id="cardPrompt">Loading question prompt&hellip;</div>
+              <div class="flip-hint">👆 Click anywhere on card or press 'Reveal Answer'</div>
+            </div>
+
+            <!-- Back Face (Revealed) -->
+            <div id="cardBack" class="card-face back-face" hidden>
+              <div class="card-badge success-badge" id="cardTypeBadgeBack">Answer</div>
+              <div class="card-answer" id="cardAnswer"></div>
+              <div class="card-explanation" id="cardExplanation"></div>
+              
+              <!-- Citations -->
+              <div id="cardCitations" class="card-citations" hidden>
+                <span class="citation-label">📍 Verified Source:</span>
+                <span id="citationText"></span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Reveal & Navigation Bar -->
+          <div class="controls-bar">
+            <button id="prevCardBtn" class="btn-secondary">← Previous</button>
+            <button id="revealBtn" class="btn-primary" style="min-width: 140px;">Eye Reveal Answer</button>
+            <button id="nextCardBtn" class="btn-secondary">Next →</button>
+          </div>
+
+          <!-- Recall Rating Bar (Shown when answer revealed) -->
+          <div id="ratingBar" class="rating-bar" hidden>
+            <p class="rating-prompt">Rate your recall of this card:</p>
+            <div class="rating-buttons">
+              <button class="rate-btn btn-again" data-rating="again">🔴 Again</button>
+              <button class="rate-btn btn-hard" data-rating="hard">🟠 Hard</button>
+              <button class="rate-btn btn-good" data-rating="good">🟢 Good</button>
+              <button class="rate-btn btn-easy" data-rating="easy">🔵 Easy</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Deck Completion Summary Card -->
+        <div id="summaryCard" class="summary-card" hidden>
+          <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎉</div>
+          <h2>Deck Complete!</h2>
+          <p style="color: #475569; margin-bottom: 1.5rem;">Great active recall session! You reviewed all cards in this deck.</p>
+          <div id="reviewStats" class="review-stats"></div>
+          <div style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
+            <button id="restartDeckBtn" class="btn-primary">🔄 Review Deck Again</button>
+            <a href="dashboard.html" class="btn-secondary">Back to Dashboard</a>
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Built for learning.</p>
+  </footer>
+
+  <script src="../js/flashcards.js"></script>
+</body>
+</html>

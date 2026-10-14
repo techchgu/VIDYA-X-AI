@@ -1,0 +1,39 @@
+{
+  "dataset_version": "1.0",
+  "title": "VIDYA-X AI Benchmark Evaluation Dataset",
+  "description": "Synthetic multi-subject evaluation benchmark dataset covering retrieval, grounded RAG, citations, abstention, quiz quality, personalization, and study planning.",
+  "created_at": "2026-10-10T00:00:00Z",
+  "author": "VIDYA-X AI Quality Framework",
+  "file_manifest": {
+    "retrieval_cases.jsonl": {
+      "task_type": "retrieval",
+      "case_count": 5,
+      "description": "Queries with ground truth chunk IDs for Recall@K, Precision@K, and MRR."
+    },
+    "rag_cases.jsonl": {
+      "task_type": "rag",
+      "case_count": 6,
+      "description": "Grounded answer verification and unsupported question abstention cases."
+    },
+    "citation_cases.jsonl": {
+      "task_type": "citation",
+      "case_count": 5,
+      "description": "Source citation ID resolution, page/slide/timestamp validation, and cross-course boundary cases."
+    },
+    "quiz_cases.jsonl": {
+      "task_type": "quiz",
+      "case_count": 5,
+      "description": "Question answer key correctness, MCQ distractor verification, and deduplication cases."
+    },
+    "personalization_cases.jsonl": {
+      "task_type": "personalization",
+      "case_count": 8,
+      "description": "Synthetic learner profiles A through H exercising adaptive recommendations and prerequisite priority."
+    },
+    "study_plan_cases.jsonl": {
+      "task_type": "study_plan",
+      "case_count": 5,
+      "description": "Time budget compliance, exam date boundary, and spaced repetition interval cases."
+    }
+  }
+}

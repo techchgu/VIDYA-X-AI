@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Study Planner — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/study-plan.css">
+</head>
+<body>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header">
+    <div class="logo">VIDYA-X <span class="logo-accent">AI</span></div>
+    <p class="tagline">Intelligent Study Planner & Spaced Repetition Engine</p>
+    <nav class="nav-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="study-plan.html" class="active">Study Planner</a>
+      <a href="flashcards.html">Flashcards</a>
+      <a href="revision.html">Revision Studio</a>
+      <a href="remediation.html">Remediation</a>
+      <a href="exam-readiness.html">Exam Readiness</a>
+      <a href="progress.html">Progress</a>
+    </nav>
+  </header>
+
+  <main class="study-planner-container">
+
+    <!-- Header & Config Card -->
+    <div class="plan-header-card">
+      <div class="plan-header-main">
+        <div>
+          <h2>📅 Smart Study Planner</h2>
+          <p class="subtitle">Adaptive study schedules prioritizing weak topics, active misconceptions, spaced repetition, and prerequisite needs.</p>
+        </div>
+        <div class="header-actions">
+          <button id="toggleConfigBtn" class="btn btn-secondary">⚙️ Adjust Plan Settings</button>
+          <button id="generatePlanBtn" class="btn btn-primary">✨ Generate New Plan</button>
+        </div>
+      </div>
+
+      <!-- Config Panel (Collapsible) -->
+      <div id="planConfigPanel" class="plan-config-panel hidden">
+        <h3>Plan Generation & Preferences</h3>
+        <div class="config-grid">
+          <div class="form-group">
+            <label for="courseIdInput">Course ID</label>
+            <input type="text" id="courseIdInput" placeholder="e.g. physics-101">
+          </div>
+          <div class="form-group">
+            <label for="horizonSelect">Planning Horizon</label>
+            <select id="horizonSelect">
+              <option value="7" selected>7 Days (Weekly Plan)</option>
+              <option value="14">14 Days (2-Week Plan)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="dailyBudgetInput">Daily Study Budget (Minutes)</label>
+            <input type="number" id="dailyBudgetInput" min="15" max="240" step="15" value="45">
+          </div>
+          <div class="form-group">
+            <label for="examDateInput">Upcoming Exam Date (Optional)</label>
+            <input type="date" id="examDateInput">
+          </div>
+        </div>
+        <div class="config-actions">
+          <button id="savePrefsBtn" class="btn btn-secondary">Save Preferences</button>
+          <button id="confirmGenerateBtn" class="btn btn-primary">Generate Plan Now</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Plan Summary Bar -->
+    <div id="planSummaryBar" class="plan-summary-bar card">
+      <div class="summary-metric">
+        <span class="metric-label">Target Exam</span>
+        <span id="examDateMetric" class="metric-value">Not Scheduled</span>
+      </div>
+      <div class="summary-metric">
+        <span class="metric-label">Daily Study Budget</span>
+        <span id="budgetMetric" class="metric-value">45 mins / day</span>
+      </div>
+      <div class="summary-metric">
+        <span class="metric-label">Plan Progress</span>
+        <span id="progressMetric" class="metric-value">0%</span>
+        <div class="progress-bar-bg">
+          <div id="planProgressBarFill" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+      <div class="summary-metric">
+        <span class="metric-label">Tasks Completed</span>
+        <span id="taskCountMetric" class="metric-value">0 / 0</span>
+      </div>
+    </div>
+
+    <!-- Planner Tabs: Today vs Full Week -->
+    <div class="view-toggle-bar">
+      <button id="todayViewTab" class="tab-btn active">Today's Tasks</button>
+      <button id="weekViewTab" class="tab-btn">Full Schedule View</button>
+    </div>
+
+    <!-- Main Schedule Container -->
+    <div id="scheduleContainer" class="schedule-container">
+      <div class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading your personalized study plan...</p>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../js/study-plan.js"></script>
+</body>
+</html>

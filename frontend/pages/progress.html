@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Progress — VIDYA-X AI</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/app-shell.css">
+  <link rel="stylesheet" href="../css/progress.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <a href="dashboard.html" class="app-brand">VIDYA-X <span class="brand-accent">AI</span></a>
+    </div>
+    <nav class="header-nav">
+      <a href="dashboard.html" class="nav-item">Dashboard</a>
+      <a href="upload.html" class="nav-item">Materials</a>
+      <a href="tutor.html" class="nav-item">AI Tutor</a>
+      <a href="visuals.html" class="nav-item">Visuals</a>
+      <a href="quiz.html" class="nav-item">Practice</a>
+      <a href="progress.html" class="nav-item active">Mastery</a>
+      <a href="study-plan.html" class="nav-item">Study Plan</a>
+    </nav>
+  </header>
+
+  <!-- ===== Main ===== -->
+  <main class="progress-main" id="progressMain">
+
+    <!-- ── Loading State ── -->
+    <div class="progress-loading" id="progressLoading">
+      <div class="spinner"></div>
+      <p>Loading your learning data&hellip;</p>
+    </div>
+
+    <!-- ── Error State ── -->
+    <div class="progress-error" id="progressError" hidden>
+      <p class="error-icon">&#x26A0;&#xFE0F;</p>
+      <p class="error-msg-text" id="progressErrorMsg">
+        Learning progress is temporarily unavailable.<br>
+        Please make sure the backend is running on port 8000.
+      </p>
+      <a href="dashboard.html" class="btn-secondary">Back to Dashboard</a>
+    </div>
+
+    <!-- ── No Data State ── -->
+    <div class="progress-no-data" id="progressNoData" hidden>
+      <div class="no-data-card">
+        <p class="no-data-icon">&#x1F4DA;</p>
+        <h2>No Assessment Data Yet</h2>
+        <p>
+          You haven&rsquo;t completed any assessments for this course yet.<br>
+          Take a quiz to start building your learner profile.
+        </p>
+        <div class="no-data-actions">
+          <a href="quiz.html" class="btn-primary">Start a Quiz</a>
+          <a href="dashboard.html" class="btn-secondary">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Progress Content ── -->
+    <div class="progress-content" id="progressContent" hidden>
+
+      <!-- Header row -->
+      <div class="progress-header">
+        <div>
+          <h2 class="page-title">My Learning Progress</h2>
+          <p class="page-sub" id="progressSubtitle"></p>
+        </div>
+        <a href="dashboard.html" class="back-link">&#8592; Dashboard</a>
+      </div>
+
+      <!-- ① Overall Mastery Card -->
+      <section class="overall-card" id="overallCard">
+        <div class="overall-circle" id="overallCircle">
+          <span class="overall-pct" id="overallPct">--</span>
+          <span class="overall-label">Overall</span>
+        </div>
+        <div class="overall-stats">
+          <h3>Overall Course Mastery</h3>
+          <p class="mastery-note">
+            Estimated mastery is based on your answers to assessed questions
+            using Bayesian Knowledge Tracing. This is a probabilistic estimate,
+            not a direct measurement of knowledge.
+          </p>
+          <div class="stat-pills" id="statPills"></div>
+        </div>
+      </section>
+
+      <!-- ② Diagnostic CTA (shown when no history) -->
+      <section class="diagnostic-cta" id="diagnosticCta" hidden>
+        <p>&#x1F50D; <strong>Let&rsquo;s estimate your starting knowledge.</strong>
+          Take a quick diagnostic assessment to initialise your learner profile.</p>
+        <button class="btn-primary" id="startDiagnosticBtn">Start Diagnostic</button>
+      </section>
+
+      <!-- ③ Topic Mastery -->
+      <section class="progress-section" id="topicsSection">
+        <h3 class="section-title">&#x1F4D6; Topic Mastery</h3>
+        <div class="topic-list" id="topicList">
+          <p class="empty-hint">No topics assessed yet.</p>
+        </div>
+      </section>
+
+      <!-- ④ Concept Drill-down -->
+      <section class="progress-section" id="conceptsSection" hidden>
+        <div class="concepts-header">
+          <h3 class="section-title" id="conceptsSectionTitle">&#x1F9E0; Concepts</h3>
+          <button class="close-concepts-btn" id="closeConceptsBtn">&#x2715; Close</button>
+        </div>
+        <div class="concept-list" id="conceptList"></div>
+      </section>
+
+      <!-- ⑤ Weak Topics -->
+      <section class="progress-section" id="weakSection">
+        <h3 class="section-title">&#x1F53B; Needs Review</h3>
+        <div class="weak-list" id="weakList">
+          <p class="empty-hint">No topics need review. Keep it up!</p>
+        </div>
+      </section>
+
+      <!-- ⑥ Strong Topics -->
+      <section class="progress-section" id="strongSection">
+        <h3 class="section-title">&#x2B50; Mastered</h3>
+        <div class="strong-list" id="strongList">
+          <p class="empty-hint">No topics mastered yet — keep practicing!</p>
+        </div>
+      </section>
+
+      <!-- ⑦ Recent Activity -->
+      <section class="progress-section" id="activitySection">
+        <h3 class="section-title">&#x1F552; Recent Activity</h3>
+        <div class="activity-list" id="activityList">
+          <p class="empty-hint">No recent activity found.</p>
+        </div>
+      </section>
+
+      <!-- Reset -->
+      <div class="reset-zone">
+        <button class="btn-danger" id="resetBtn">&#x1F504; Reset My Progress</button>
+        <p class="reset-note">
+          This removes your mastery estimates only. Your uploaded materials and quiz history are preserved.
+        </p>
+        <div class="reset-confirm" id="resetConfirm" hidden>
+          <p>Are you sure? This cannot be undone.</p>
+          <button class="btn-danger" id="confirmResetBtn">Yes, Reset</button>
+          <button class="btn-secondary" id="cancelResetBtn">Cancel</button>
+        </div>
+      </div>
+
+    </div><!-- /.progress-content -->
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <p>&copy; 2026 VIDYA-X AI &mdash; Built for learning.</p>
+  </footer>
+
+  <script src="../js/progress.js"></script>
+</body>
+</html>

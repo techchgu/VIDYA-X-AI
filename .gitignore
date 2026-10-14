@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environment and secrets (CRITICAL: NEVER COMMIT)
+.env
+.env.*
+!.env.example
+backend/.env
+backend/.env.*
+!backend/.env.example
+
+# Local SQLite databases
+*.db
+*.sqlite3
+test_*.db
+vidya_x.db
+
+# Storage artifacts & uploaded binaries
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/visual_assets/*
+!backend/visual_assets/.gitkeep
+backend/extracted/*
+!backend/extracted/.gitkeep
+
+# Evaluation run artifacts
+backend/evaluation/results/*
+!backend/evaluation/results/.gitkeep
+
+# Pytest & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+env/
+.venv/
+ENV/
+
+# OS-generated files
+.DS_Store
+Thumbs.db
